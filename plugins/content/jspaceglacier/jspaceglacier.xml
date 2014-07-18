@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.3" type="plugin" group="content" method="upgrade">
+	<name>plg_content_jspaceglacier</name>
+	<author>KnowledgeArc</author>
+	<creationDate>2014/06/24</creationDate>
+	<copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>development@knowledgearc.com</authorEmail>
+	<authorUrl>www.knowledgearc.org</authorUrl>
+	<version>0.1.0</version>
+	<description>PLG_CONTENT_JSPACEGLACIER_XML_DESCRIPTION</description>
+	
+	<install>
+    	<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	
+    <uninstall>
+    	<sql>
+    		<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+    	</sql>
+    </uninstall>
+    
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+	
+	<files>
+		<filename plugin="jspaceglacier">jspaceglacier.php</filename>
+		<folder>sql</folder>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_jspaceglacier.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_jspaceglacier.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset 
+				name="basic">
+				<field 
+					name="vault" 
+					type="text"
+					label="PLG_CONTENT_JSPACEGLACIER_VAULT_LABEL" 
+					description="PLG_CONTENT_JSPACEGLACIER_VAULT_DESC"/>
+				<field 
+					name="region" 
+					type="text"
+					label="PLG_CONTENT_JSPACEGLACIER_REGION_LABEL" 
+					description="PLG_CONTENT_JSPACEGLACIER_REGION_DESC"/>
+				<field 
+					name="access_key_id" 
+					type="text"
+					label="PLG_CONTENT_JSPACEGLACIER_ACCESS_KEY_ID_LABEL" 
+					description="PLG_CONTENT_JSPACEGLACIER_ACCESS_KEY_ID_DESC"/>
+				<field 
+					name="secret_access_key" 
+					type="text"
+					label="PLG_CONTENT_JSPACEGLACIER_SECRET_ACCESS_KEY_LABEL" 
+					description="PLG_CONTENT_JSPACEGLACIER_SECRET_ACCESS_KEY_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.2" type="plugin" group="content" method="upgrade">
+	<name>plg_content_clamscan</name>
+	<author>KnowledgeArc</author>
+	<creationDate>2014/06/26</creationDate>
+	<copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>development@knowledgearc.com</authorEmail>
+	<authorUrl>www.knowledgearc.org</authorUrl>
+	<version>0.1.0</version>
+	<description>PLG_CONTENT_CLAMSCAN_XML_DESCRIPTION</description>
+	
+	<files>
+		<filename plugin="clamscan">clamscan.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_clamscan.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_content_clamscan.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field 
+					name="path" 
+					type="text"
+					label="PLG_CONTENT_CLAMSCAN_URL_LABEL" 
+					description="PLG_CONTENT_CLAMSCAN_URL_DESC"/>
+				<field 
+					name="port" 
+					type="text"
+					label="PLG_CONTENT_CLAMSCAN_PORT_LABEL" 
+					description="PLG_CONTENT_CLAMSCAN_PORT_DESC"/>
+				<field 
+					name="timeout" 
+					type="text"
+					label="PLG_CONTENT_CLAMSCAN_TIMEOUT_LABEL" 
+					description="PLG_CONTENT_CLAMSCAN_TIMEOUT_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Content - ClamAV Scan Plugin" default="" basedir=".">
+	<property name="dest.plugins.content" value="${dest.plugins}/content"/>
+	
+	<target name="update" description="">
+		<echo message="Deploying Content - ClamAV Scan Plugin to Joomla! environment."/>
+		<copy todir="${dest.plugins.content}/clamscan">
+			<fileset dir="${src}" defaultexcludes="true">
+				<include name="**"/>
+				<exclude name="**/language/**"/>
+				<exclude name="**/build*.xml"/>
+			</fileset>
+		</copy>
+		<copy todir="${dest.administrator.languages}">
+			<fileset dir="${src}/language" defaultexcludes="true">
+				<include name="**/**"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="package" description="Creates a Content - ClamAV Scan Plugin package.">
+		<echo message="Packaging Content - ClamAV Scan plugin."/>
+		<zip destfile="${package.dest}/plg_content_clamscan.zip"
+		       basedir="${src}"
+		       update="true"
+		       excludes="build*.xml"/>
+	</target>
+</project>

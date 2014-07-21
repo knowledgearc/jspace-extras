@@ -15,6 +15,7 @@ use Aws\Common\Credentials\Credentials;
 
 jimport('jspace.factory');
 jimport('jspace.html.assets');
+jimport('jspace.archive.assethelper');
 
 /**
  * Manages assets on Amazon Web Services S3.
@@ -41,6 +42,60 @@ class PlgContentJSpaceS3 extends JPlugin
 		
 		$this->params->loadArray(array('component'=>$params->toArray()));
 	}
+    
+    /**
+     * Returns html to the S3 download mechanism.
+     *
+     * @param   JSpaceAsset  $asset  An instance of the asset being downloaded.
+     *
+     * @return  string       The html to the JSpace Asset Store download mechanism.
+     */
+    public function onJSpaceAssetPrepareDownload($asset)
+    {
+        $html = null;
+    
+        $credentials = new Credentials(
+            $this->params->get('access_key_id'), 
+            $this->params->get('secret_access_key')); 
+
+        $s3 = S3Client::factory(array('credentials'=>$credentials));
+        
+        $storage = JSpaceArchiveAssetHelper::buildStoragePath($asset->record_id);
+        $path = $storage.$asset->hash;
+        
+        if ($s3->doesObjectExist($this->params->get('bucket'), $path))
+        {
+            $asset->url = JRoute::_('index.php?option=com_jspace&task=asset.stream&type=jspaces3&id='.$asset->id);
+            
+            $layout = JPATH_PLUGINS.'/content/jspaces3/layouts';
+            $html = JLayoutHelper::render("jspaces3", $asset, $layout);
+        }
+
+        return $html;
+    }
+    
+    /**
+     * Redirects the client to an S3 download url.
+     *
+     * @param  JSpaceAsset  $asset  An instance of the asset being downloaded.
+     */
+    public function onJSpaceAssetDownload($asset)
+    {
+        $credentials = new Credentials(
+            $this->params->get('access_key_id'), 
+            $this->params->get('secret_access_key')); 
+
+        $s3 = S3Client::factory(array('credentials'=>$credentials));
+
+        $storage = JSpaceArchiveAssetHelper::buildStoragePath($asset->record_id);
+        $path = $storage.$asset->hash;
+
+        $options = array('ResponseContentDisposition'=>'attachment; filename="'.$asset->getMetadata()->get('fileName', $path).'"');
+
+        $url = $s3->getObjectUrl($this->params->get('bucket'), $path, "+10minute", $options);
+        
+        JFactory::getApplication()->redirect($url);
+    }
 	
 	/**
 	 * validates the S3 settings.
@@ -87,28 +142,40 @@ class PlgContentJSpaceS3 extends JPlugin
             return true;
         }
         
-		$credentials = new Credentials($this->params->get('access_key_id'), $this->params->get('secret_access_key')); 
+		$credentials = new Credentials(
+            $this->params->get('access_key_id'), 
+            $this->params->get('secret_access_key')); 
 		
 		$storage = JSpaceArchiveAssetHelper::buildStoragePath($asset->record_id);
 		
-		try
-		{
-			$s3 = S3Client::factory(array('credentials'=>$credentials));
-			
-			$uploader = \Aws\S3\Model\MultipartUpload\UploadBuilder::newInstance()
-				->setClient($s3)
-				->setSource($asset->tmp_name)
-				->setBucket($this->params->get('bucket'))
-				->setKey($storage.sha1_file($asset->tmp_name))
-				->setOption('Metadata', $asset->getMetadata()->toArray())
-				->setOption('CacheControl', 'max-age=3600')
-				->setConcurrency(3)
-				->build();
-			
-			$uploader->upload();
+        $s3 = S3Client::factory(array('credentials'=>$credentials));
+        
+        $iam = Aws\Iam\IamClient::factory(array('credentials' => $credentials));
+
+        $acp = Aws\S3\Model\AcpBuilder::newInstance()
+            ->setOwner($iam->getUser()['User']['Arn'])
+            ->addGrantForGroup('READ', Aws\S3\Enum\Group::AUTHENTICATED_USERS)
+            ->build();
+        
+        $uploader = \Aws\S3\Model\MultipartUpload\UploadBuilder::newInstance()
+            ->setClient($s3)
+            ->setSource($asset->tmp_name)
+            ->setBucket($this->params->get('bucket'))
+            ->setKey($storage.sha1_file($asset->tmp_name))
+            ->setOption('Metadata', $asset->getMetadata()->toArray())
+            ->setOption('ContentType', $asset->getMetadata()->get('contentType'))
+            ->setOption('CacheControl', 'max-age=3600')
+            ->setConcurrency(3)
+            ->setACP($acp)
+            ->build();
+        
+        try
+        {
+            $uploader->upload();
 		} 
 		catch(Exception $e)
 		{
+            $uploader->abort();
 			JLog::add(__METHOD__.' '.$e->getMessage(), JLog::ERROR, 'jspace');
 			throw $e;
 		}

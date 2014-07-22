@@ -1,0 +1,1 @@
+<a href="<?php echo $displayData->url; ?>" class="btn btn-primary"><?php echo JText::_('PLG_CONTENT_JSPACEGLACIER_FAILED_LABEL'); ?><span class="icon-refresh"></span></a>

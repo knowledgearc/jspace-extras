@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+		<fieldset name="jspacedspace"
+			label="PLG_CONTENT_JSPACEDSPACE_FIELDSET_LABEL">
+			<field
+				name="jspacedspace_collection"
+				type="text"
+				id="jspacedspace_collection"
+				description="PLG_CONTENT_JSPACEDSPACE_FIELD_COLLECTION_DESC"
+				filter="string"
+				label="PLG_CONTENT_JSPACEDSPACE_FIELD_COLLECTION_LABEL"
+				size="30"/>
+		</fieldset>
+	</fields>
+</form>

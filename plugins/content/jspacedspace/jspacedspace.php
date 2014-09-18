@@ -208,7 +208,7 @@ class PlgContentJSpaceDSpace extends JPlugin
             }
             else
             {                
-                $crosswalk = JSpaceFactory::getCrosswalk($record->get('metadata'), array('name'=>'dspace'));
+                $crosswalk = JSpaceFactory::getCrosswalk($record->get('metadata'));
                 $metadata = $crosswalk->walk(true);
                 
                 $data = new stdClass();
@@ -299,7 +299,7 @@ class PlgContentJSpaceDSpace extends JPlugin
             throw new Exception(JText::_('PLG_CONTENT_JSPACEDSPACE_INVALID_COLLECTION'));
         }
         
-        $crosswalk = JSpaceFactory::getCrosswalk($record->get('metadata'), array('name'=>'dspace'));
+        $crosswalk = JSpaceFactory::getCrosswalk($record->get('metadata'));
         $metadata = $crosswalk->walk(true);
         
         $data = new SimpleXMLElement("<request/>");
@@ -334,7 +334,7 @@ class PlgContentJSpaceDSpace extends JPlugin
         static::$assets[] = array('name'=>'package.xml', 'data'=>$data->saveXML());
     
         $package = new JArchiveZip();
-        $package->create(JPATH_ROOT.'tmp/'.$record->id.'.zip', static::$assets);
+        $package->create(JPATH_ROOT.'/tmp/'.$record->id.'.zip', static::$assets);
         
         return JPATH_ROOT.'/tmp/'.$record->id.'.zip';
     }

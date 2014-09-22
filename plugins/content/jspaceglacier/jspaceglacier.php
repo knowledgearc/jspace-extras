@@ -182,9 +182,9 @@ class PlgContentJSpaceGlacier extends JPlugin
                         'jobId'=>$archive->job_id));
                     
                     // stream out the contents of the archived file.
-                    header("Content-Type: ".$asset->getMetadata()->get('contentType'));
-                    header("Content-Disposition: attachment; filename=".$asset->getMetadata()->get('fileName').";");
-                    header("Content-Length: ".$asset->getMetadata()->get('contentLength'));
+                    header("Content-Type: ".$asset->get('contentType'));
+                    header("Content-Disposition: attachment; filename=".$asset->get('title').";");
+                    header("Content-Length: ".$asset->get('contentLength'));
                     
                     $stream = JArrayHelper::getValue($result, 'body');
                     $stream->rewind();
@@ -291,7 +291,7 @@ class PlgContentJSpaceGlacier extends JPlugin
 			$uploader = \Aws\Glacier\Model\MultipartUpload\UploadBuilder::newInstance()
 				->setClient($glacier)
 				->setSource($asset->tmp_name)
-				->setArchiveDescription((string)$asset->getMetadata())
+				->setArchiveDescription((string)$asset->get('metadata'))
 				->setVaultName($this->params->get('vault'))
 				->setPartSize(self::$partSize)
 				->setConcurrency(self::$concurrency)

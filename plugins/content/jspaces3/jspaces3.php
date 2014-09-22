@@ -90,7 +90,7 @@ class PlgContentJSpaceS3 extends JPlugin
         $storage = JSpaceArchiveAssetHelper::buildStoragePath($asset->record_id);
         $path = $storage.$asset->hash;
 
-        $options = array('ResponseContentDisposition'=>'attachment; filename="'.$asset->getMetadata()->get('fileName', $path).'"');
+        $options = array('ResponseContentDisposition'=>'attachment; filename="'.$asset->getMetadata()->get('name', $path).'"');
 
         $url = $s3->getObjectUrl($this->params->get('bucket'), $path, "+10minute", $options);
         
@@ -162,8 +162,8 @@ class PlgContentJSpaceS3 extends JPlugin
             ->setSource($asset->tmp_name)
             ->setBucket($this->params->get('bucket'))
             ->setKey($storage.sha1_file($asset->tmp_name))
-            ->setOption('Metadata', $asset->getMetadata()->toArray())
-            ->setOption('ContentType', $asset->getMetadata()->get('contentType'))
+            ->setOption('Metadata', $asset->get('metadata')->toArray())
+            ->setOption('ContentType', $asset->get('contentType'))
             ->setOption('CacheControl', 'max-age=3600')
             ->setConcurrency(3)
             ->setACP($acp)

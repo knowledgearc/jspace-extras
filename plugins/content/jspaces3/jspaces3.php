@@ -161,7 +161,7 @@ class PlgContentJSpaceS3 extends JPlugin
             ->setClient($s3)
             ->setSource($asset->tmp_name)
             ->setBucket($this->params->get('bucket'))
-            ->setKey($storage.sha1_file($asset->tmp_name))
+            ->setKey($storage.JSpaceFile::getHash($asset->tmp_name))
             ->setOption('Metadata', $asset->get('metadata')->toArray())
             ->setOption('ContentType', $asset->get('contentType'))
             ->setOption('CacheControl', 'max-age=3600')

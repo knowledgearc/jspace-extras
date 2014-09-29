@@ -1,0 +1,2 @@
+'id','asset_id','title','alias','published','language','created','created_by','modified','modified_by','checked_out','checked_out_time','publish_up','publish_down','metadata','schema','parent_id','ordering','version','access','catid','rgt','lft','level','path'
+1, 0, 'JSpace_Record_Root', 'root', 0, '*', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'Record', 0, 0, 1, 0, 0, 1, 0, 0, ''

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.2" type="plugin" group="authentication" method="upgrade">
+    <name>plg_authentication_orcid</name>
+    <author>KnowledgeArc</author>
+    <creationDate>2014/10/23</creationDate>
+    <copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>development@knowledgearc.com</authorEmail>
+    <authorUrl>www.knowledgearc.org</authorUrl>
+    <version>0.1.0</version>
+    <description>PLG_AUTHENTICATION_ORCID_XML_DESCRIPTION</description>
+
+    <files>
+        <filename plugin="orcid">orcid.php</filename>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_authentication_orcid.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_authentication_orcid.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="clientid"
+                    type="text"
+                    label="PLG_AUTHENTICATION_ORCID_CLIENTID_LABEL"
+                    description="PLG_AUTHENTICATION_ORCID_CLIENTID_DESC"/>
+                <field
+                    name="clientsecret"
+                    type="text"
+                    label="PLG_AUTHENTICATION_ORCID_CLIENTSECRET_LABEL"
+                    description="PLG_AUTHENTICATION_ORCID_CLIENTSECRET_DESC"/>
+                <field
+                    name="mode"
+                    type="list"
+                    default="1"
+                    label="PLG_AUTHENTICATION_ORCID_MODE_LABEL"
+                    description="PLG_AUTHENTICATION_ORCID_MODE_DESC">
+                    <option value="1">PLG_AUTHENTICATION_ORCID_MODE_PRODUCTION</option>
+                    <option value="2">PLG_AUTHENTICATION_ORCID_MODE_SANDBOX</option>
+                </field>
+
+                <field
+                    name="access"
+                    type="list"
+                    default="1"
+                    label="PLG_AUTHENTICATION_ORCID_ACCESS_LABEL"
+                    description="PLG_AUTHENTICATION_ORCID_ACCESS_DESC">
+                    <option value="1">PLG_AUTHENTICATION_ORCID_ACCESS_PUBLIC</option>
+                    <option value="2">PLG_AUTHENTICATION_ORCID_ACCESS_MEMBER</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

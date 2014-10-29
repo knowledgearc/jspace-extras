@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="System - OAuth2" default="" basedir=".">
+    <property name="dest.plugins.system" value="${dest.plugins}/system"/>
+
+    <target name="update" description="Deploy System - OAuth2.">
+        <echo message="Deploying System - OAuth2 to Joomla! environment."/>
+        <copy todir="${dest.plugins.system}/">
+            <fileset dir="${src}" defaultexcludes="true">
+                <include name="**"/>
+                <exclude name="**/language/**"/>
+                <exclude name="**/build*.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${dest.administrator.languages}">
+            <fileset dir="${src}/language" defaultexcludes="true">
+                <include name="**/**"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="package" description="Package System - OAuth2.">
+        <echo message="Packaging System - OAuth2."/>
+        <zip destfile="${package.dest}/plg_system_oauth2.zip"
+               basedir="${src}"
+               update="true"
+               excludes="build*.xml"/>
+    </target>
+</project>

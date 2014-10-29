@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension version="3.2" type="plugin" group="system" method="upgrade">
+    <name>plg_system_oauth2</name>
+    <author>KnowledgeArc</author>
+    <creationDate>2014/10/25</creationDate>
+    <copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>development@knowledgearc.com</authorEmail>
+    <authorUrl>www.knowledgearc.org</authorUrl>
+    <version>0.1.0</version>
+    <description>PLG_SYSTEM_OAUTH2_XML_DESCRIPTION</description>
+
+    <files>
+        <filename plugin="oauth2">oauth2.php</filename>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_oauth2.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_oauth2.sys.ini</language>
+    </languages>
+    <config>
+    </config>
+</extension>

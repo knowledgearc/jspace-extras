@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.2" client="site" method="upgrade">
+    <name>mod_orcid_login</name>
+    <author>KnowledgeArc</author>
+    <creationDate>2014/10/23</creationDate>
+    <copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>development@knowledgearc.com</authorEmail>
+    <authorUrl>www.knowledgearc.org</authorUrl>
+    <version>0.1.0</version>
+    <description>MOD_ORCID_LOGIN_XML_DESCRIPTION</description>
+
+    <files>
+        <filename module="mod_orcid_login">mod_orcid_login.php</filename>
+        <folder>tmpl</folder>
+        <filename>helper.php</filename>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.mod_orcid_login.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.mod_orcid_login.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset
+                name="advanced">
+                <field
+                    name="layout"
+                    type="modulelayout"
+                    label="JFIELD_ALT_LAYOUT_LABEL"
+                    description="JFIELD_ALT_MODULE_LAYOUT_DESC"/>
+                <field
+                    name="moduleclass_sfx"
+                    type="textarea" rows="3"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC"/>
+            </fieldset>
+        </fields>
+    </config>
+</extension>

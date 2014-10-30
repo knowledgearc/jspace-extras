@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Authentication.Plugin
+ * @package     JSpace.Plugin
  *
  * @copyright   Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
  * ORCID-based profile information and registers the user details via the
  * Joomla user manager.
  *
- * @package  Authentication.Plugin
+ * @package  JSpace.Plugin
  */
 class PlgAuthenticationOrcid extends JPlugin
 {

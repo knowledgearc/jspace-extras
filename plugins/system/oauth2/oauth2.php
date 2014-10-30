@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     System.Plugin
+ * @package     JSpace.Plugin
  *
  * @copyright   Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 /**
  * Listens for oAuth2 authorization tokens.
  *
- * @package  System.Plugin
+ * @package  JSpace.Plugin
  */
 class PlgSystemOauth2 extends JPlugin
 {

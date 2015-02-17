@@ -43,7 +43,7 @@ class PlgSystemOauth2 extends JPlugin
             } else {
                 $code = JArrayHelper::getValue($queries, 'code', null, 'WORD');
 
-                if (count($queries) === 1 && $code) {
+                if (count($queries) === 1 && !empty($code)) {
                     $array = $dispatcher->trigger('onOauth2Authorise', array());
 
                     // redirect user to appropriate area of site.

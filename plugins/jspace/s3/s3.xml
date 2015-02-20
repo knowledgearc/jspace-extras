@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension version="3.3" type="plugin" group="content" method="upgrade">
-	<name>plg_content_jspaces3</name>
-	<author>KnowledgeArc</author>
-	<creationDate>2014/06/24</creationDate>
-	<copyright>Copyright (C) 2014 KnowledgeArc Ltd. All rights reserved.</copyright>
-	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<authorEmail>development@knowledgearc.com</authorEmail>
-	<authorUrl>www.knowledgearc.org</authorUrl>
-	<version>0.1.0</version>
-	<description>PLG_CONTENT_JSPACES3_XML_DESCRIPTION</description>
-	
-	<files>
-		<filename plugin="jspaces3">jspaces3.php</filename>
-	</files>
-	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_content_jspaces3.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_content_jspaces3.sys.ini</language>
-	</languages>
-	<config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field 
-					name="bucket" 
-					type="text"
-					label="PLG_CONTENT_JSPACES3_BUCKET_LABEL" 
-					description="PLG_CONTENT_JSPACES3_BUCKET_DESC"/>
-				<field 
-					name="access_key_id" 
-					type="text"
-					label="PLG_CONTENT_JSPACES3_ACCESS_KEY_ID_LABEL" 
-					description="PLG_CONTENT_JSPACES3_ACCESS_KEY_ID_DESC"/>
-				<field 
-					name="secret_access_key" 
-					type="text"
-					label="PLG_CONTENT_JSPACES3_SECRET_ACCESS_KEY_LABEL" 
-					description="PLG_CONTENT_JSPACES3_SECRET_ACCESS_KEY_DESC"/>
-			</fieldset>
-		</fields>
-	</config>
+<extension version="3.3" type="plugin" group="jspace" method="upgrade">
+    <name>plg_jspace_s3</name>
+    <author>KnowledgeArc Ltd</author>
+    <creationDate>2014/06/24</creationDate>
+    <copyright>Copyright (C) 2014-2015 KnowledgeArc Ltd. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>development@knowledgearc.com</authorEmail>
+    <authorUrl>www.knowledgearc.org</authorUrl>
+    <version>0.1.0</version>
+    <description>PLG_JSPACE_S3_XML_DESCRIPTION</description>
+
+    <files>
+        <filename plugin="s3">s3.php</filename>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_jspace_s3.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_jspace_s3.sys.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="bucket"
+                    type="text"
+                    label="PLG_JSPACE_S3_BUCKET_LABEL"
+                    description="PLG_JSPACE_S3_BUCKET_DESC"/>
+                <field
+                    name="access_key_id"
+                    type="text"
+                    label="PLG_JSPACE_S3_ACCESS_KEY_ID_LABEL"
+                    description="PLG_JSPACE_S3_ACCESS_KEY_ID_DESC"/>
+                <field
+                    name="secret_access_key"
+                    type="text"
+                    label="PLG_JSPACE_S3_SECRET_ACCESS_KEY_LABEL"
+                    description="PLG_JSPACE_S3_SECRET_ACCESS_KEY_DESC"/>
+            </fieldset>
+        </fields>
+    </config>
 </extension>

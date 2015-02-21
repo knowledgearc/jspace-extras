@@ -9,12 +9,12 @@
 defined('_JEXEC') or die;
 
 //require_once(JPATH_PLATFORM.'/amazon/aws-autoloader.php');
-JLoader::registerNamespace('Aws', JOOMLA_PLATFORM.'amazon');
+JLoader::registerNamespace('Aws', JPATH_PLATFORM.'/amazon');
+JLoader::registerNamespace('Guzzle', JPATH_PLATFORM.'/amazon');
 JLoader::registerNamespace('JSpace', JPATH_PLATFORM);
 
 use Aws\S3\S3Client;
 use Aws\Common\Credentials\Credentials;
-
 use JSpace\Factory;
 use JSpace\Html\Assets;
 use JSpace\Archive\AssetHelper;
@@ -130,17 +130,16 @@ class PlgJSpaceS3 extends JPlugin
      * Saves an asset to an Amazon S3 bucket.
      *
      * @param   string    $context  The context of the content being passed. Will be com_jspace.asset.
-     * @param   JObject   $asset    An instance of the JSpaceAsset class.
-     * @param   bool      $isNew    True if the asset being saved is new, false otherwise.
+     * @param   JObject   $item     An item to save.
+     * @param   bool      $isNew    True if the item being saved is new, false otherwise.
      *
      * @return  bool      True if the asset is successfully saved, false otherwise.
      *
      * @throw  Exception  If the asset fails to be written to the S3 bucket.
 	 */
-	public function onJSpaceAfterSave($context, $asset, $isNew)
+	public function onJSpaceAfterSave($context, $item, $isNew)
 	{
-        if ($context != 'com_jspace.asset')
-        {
+        if ($context != 'com_jspace.asset') {
             return true;
         }
 
@@ -148,11 +147,11 @@ class PlgJSpaceS3 extends JPlugin
             $this->params->get('access_key_id'),
             $this->params->get('secret_access_key'));
 
-		$storage = JSpaceArchiveAssetHelper::buildStoragePath($asset->record_id);
+		$storage = \JSpace\Archive\AssetHelper::buildStoragePath($item->record_id);
 
         $s3 = S3Client::factory(array('credentials'=>$credentials));
 
-        $iam = Aws\Iam\IamClient::factory(array('credentials' => $credentials));
+        $iam = Aws\Iam\IamClient::factory(array('credentials'=>$credentials));
 
         $acp = Aws\S3\Model\AcpBuilder::newInstance()
             ->setOwner($iam->getUser()['User']['Arn'])
@@ -161,23 +160,21 @@ class PlgJSpaceS3 extends JPlugin
 
         $uploader = \Aws\S3\Model\MultipartUpload\UploadBuilder::newInstance()
             ->setClient($s3)
-            ->setSource($asset->tmp_name)
+            ->setSource($item->tmp_name)
             ->setBucket($this->params->get('bucket'))
-            ->setKey($storage.JSpaceFile::getHash($asset->tmp_name))
-            ->setOption('Metadata', $asset->get('metadata')->toArray())
-            ->setOption('ContentType', $asset->get('contentType'))
+            ->setKey($storage.\JSpace\FileSystem\File::getHash($item->tmp_name))
+            ->setOption('Metadata', $item->get('metadata')->toArray())
+            ->setOption('ContentType', $item->get('contentType'))
             ->setOption('CacheControl', 'max-age=3600')
             ->setConcurrency(3)
             ->setACP($acp)
             ->build();
 
-        try
-        {
+        try {
             $uploader->upload();
-		}
-		catch(Exception $e)
-		{
+        } catch(Exception $e) {
             $uploader->abort();
+
 			JLog::add(__METHOD__.' '.$e->getMessage(), JLog::ERROR, 'jspace');
 			throw $e;
 		}

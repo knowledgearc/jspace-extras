@@ -204,7 +204,7 @@
         </if>
     </target>
 
-    <target name="test" description="Runs all unit tests.">
+    <target name="test" description="Runs all unit tests." depends="deploy">
         <phpunit bootstrap="tests/unit/bootstrap.php">
             <formatter type="summary" usefile="false"/>
             <batchtest>

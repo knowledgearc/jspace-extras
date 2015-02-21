@@ -11,6 +11,21 @@ class JSpaceS3Test extends \TestCaseDatabase
     {
         parent::setUp();
 
+        // retrieve s3 settings from properties file.
+        $properties = parse_ini_file(dirname(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__))))))).'/build.properties');
+        $bucket = $properties['s3.bucket'];
+        $id = $properties['s3.secret_key_id'];
+        $secret = $properties['s3.secret_key_access'];
+
+        $database = JFactory::getDbo();
+        $query = $database->getQuery(true);
+        $query
+            ->update('#__extensions')
+            ->set("params='{\"bucket\":\"".$bucket."\",\"access_key_id\":\"".$id."\",\"secret_access_key\":\"".$secret."\"}'")
+            ->where("name='plg_jspace_s3'");
+
+        $database->setQuery($query)->execute();
+
         $plugin = JPluginHelper::getPlugin('jspace', 's3');
 
         $params = new Joomla\Registry\Registry;
@@ -20,11 +35,11 @@ class JSpaceS3Test extends \TestCaseDatabase
 
     public function testCreateItem()
     {
-        $files = array();//$this->getFiles();
+        $files = $this->getFiles();
 
         $record = $this->createRecord();
         $result = $record->save($files);
-        var_dump($result);
+
         $this->assertTrue($result);
 
         $equals = array(
@@ -52,21 +67,19 @@ class JSpaceS3Test extends \TestCaseDatabase
     private function getFiles()
     {
         $files = array();
-        $files["bundle"] = array();
-        $files["bundle"]["assets"] = array();
-        $files["bundle"]["assets"]["original"] = array();
+        $files["original"] = array();
 
-        $files["bundle"]["assets"]["original"][] = array(
+        $files["original"][] = array(
             'name'=>'file1.jpg',
             'type'=>'image/jpg',
-            'tmp_name'=>dirname(__FILE__).'/file1.jpg',
+            'tmp_name'=>dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/stubs/files/file1.jpg',
             'error'=>0,
             'size'=>515621);
 
-        $files["bundle"]["assets"]["original"][] = array(
+        $files["original"][] = array(
             'name'=>'file2.jpg',
             'type'=>'image/jpg',
-            'tmp_name'=>dirname(__FILE__).'/file2.jpg',
+            'tmp_name'=>dirname(dirname(dirname(dirname(dirname(__FILE__))))).'/stubs/files/file2.jpg',
             'error'=>0,
             'size'=>248198);
 

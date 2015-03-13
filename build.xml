@@ -235,8 +235,6 @@
     </target>
 
     <target name="package_extension" hidden="true">
-        <echo msg="${path}"/>
-        <echo msg="${directory}"/>
         <switch value="${path}">
             <case value="plugins/${directory}">
                 <foreach param="subdirectory" absparam="plugin_path" target="package_plugin">
@@ -266,7 +264,7 @@
             <param value="_"/>
             <param value="${replaced}"/>
         </php>
-        <echo msg="${replaced}"/>
+
         <zip
             destfile="${package.dest}/${replaced}.zip"
             basedir="${src}/${plugin_path}"/>

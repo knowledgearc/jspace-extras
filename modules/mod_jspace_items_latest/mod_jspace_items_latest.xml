@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension
+	type="module"
+	version="2.5"
+	client="site"
+	method="upgrade">
+	<name>mod_jspace_items_latest</name>
+	<author>Wijiti Pty Ltd</author>
+	<creationDate>2012/05/16</creationDate>
+	<copyright>Copyright (C) 2012 Wijiti Pty Ltd. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html</license>
+	<authorEmail>development@wijiti.com</authorEmail>
+	<authorUrl>www.wijiti.com</authorUrl>
+	<version>0.1.0</version>
+	<description>MOD_JSPACE_ITEMS_LATEST_XML_DESCRIPTION</description>
+	<files>
+		<filename module="mod_jspace_items_latest">mod_jspace_items_latest.php</filename>
+		<folder>tmpl</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jspace_items_latest.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.mod_jspace_items_latest.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+		</fields>
+	</config>
+</extension>
